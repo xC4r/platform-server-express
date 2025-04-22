@@ -1,8 +1,8 @@
 const mysql = require('mysql2');
 const { db } = require('./config');
 const { URL } = require('url');
-
 const dbUrl = new URL(db.url);
+
 const connection = mysql.createConnection({
     host: dbUrl.hostname,       // 'localhost'
     user: dbUrl.username,       // 'root'

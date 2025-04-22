@@ -12,15 +12,11 @@ const app = express();
 app.use(express.json());
 
 // Usar las rutas
-app.use('/ventas/clientes', clientesRoutes);
-app.use('/ventas/cpe', cpeRoutes);
-app.use('/ventas/cpedet', cpedetRoutes);
-app.use('/ventas/cpeserie', cpeserieRoutes);
-app.use('/ventas/proveedores', proveedoresRoutes);
-app.use('/ventas/ventascli', ventascliRoutes);
+app.use('/clientes', clientesRoutes);
+app.use('/cpe', cpeRoutes);
+app.use('/cpedet', cpedetRoutes);
+app.use('/cpeserie', cpeserieRoutes);
+app.use('/proveedores', proveedoresRoutes);
+app.use('/ventascli', ventascliRoutes);
 
-// Iniciar el servidor
-const PORT = config.port.VENT_PORT;
-app.listen(PORT, () => {
-  console.log(`MS-VENTAS escuchando en el puerto ${PORT}`);
-});
+module.exports = app;

@@ -10,15 +10,12 @@ const app = express();
 
 app.use(express.json());
 
-// Usar las rutas de usuario
-app.use('/almacen/productos', productoRoutes);
-app.use('/almacen/inventarios', inventarioRoutes);
-app.use('/almacen/movimientos', movimientoRoutes);
-app.use('/almacen/pedidos', pedidoRoutes);
-app.use('/almacen/pedidodetalles', pedidoDetalleRoutes);
+// Usar las rutas de almacén
+app.use('/productos', productoRoutes);
+app.use('/inventarios', inventarioRoutes);
+app.use('/movimientos', movimientoRoutes);
+app.use('/pedidos', pedidoRoutes);
+app.use('/pedidodetalles', pedidoDetalleRoutes);
 
-// Iniciar el servidor
-const PORT = config.port.ALMA_PORT;
-app.listen(PORT, () => {
-  console.log(`MS-ALMA escuchando en el puerto ${PORT}`);
-});
+module.exports = app;
+
