@@ -1,11 +1,5 @@
 # Node modules
 /node_modules
-/services/api-gateway/node_modules
-/services/common/node_modules
-/services/ms-admin/node_modules
-/services/ms-almacen/node_modules
-/services/ms-seguridad/node_modules
-/services/ms-ventas/node_modules
 
 # Environment variables
 .env
@@ -15,14 +9,11 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Build output
-/build
-
 # Miscellaneous
 .DS_Store
 
 # SQL database files: Dev, Test, Prod
-db_local.sql
+# db_local.sql
 
 
 

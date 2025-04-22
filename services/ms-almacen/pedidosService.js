@@ -1,5 +1,6 @@
 const db = require('../common/database');
 const jwt = require('jsonwebtoken');
+const config = require('../common/config');
 
 const getPedidos = async (req, res) => {
   const [pedidos] = await db.promise().execute('SELECT * FROM alm_pedido_cli');
@@ -69,7 +70,7 @@ const getMaxNumPedido = async (req, res) => {
 const extractUserFromToken = (req) => {
   const token = req.headers.authorization?.split(' ')[1];
   if (!token) throw new Error('Token not provided');
-  const decoded = jwt.verify(token, 'mitienda');
+  const decoded = jwt.verify(token, config.secretKey);
   return decoded.usuario;
 };
 
