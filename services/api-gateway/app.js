@@ -10,6 +10,9 @@ const gatewayRoutes = require('./gatewayRoutes');
 const app = express();
 const PORT = config.port;
 
+// Configurar Express para confiar en el proxy
+app.set('trust proxy', 1);
+
 // Configuración de logging
 app.use(morgan('combined', {
   skip: (req, res) => res.statusCode < 400,
@@ -23,10 +26,14 @@ app.use(helmet({
   contentSecurityPolicy: {
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'", "https://tienda.gtrackspe.net"],
+      scriptSrc: ["'self'", "'unsafe-inline'", config.cors.origins],
       styleSrc: ["'self'", "'unsafe-inline'"],
       imgSrc: ["'self'", "data:", "https:"],
-      connectSrc: ["'self'", "https://tienda.gtrackspe.net"],
+      connectSrc: [
+        "'self'",
+        config.cors.origins,
+        `https://${config.host}`
+      ],
       fontSrc: ["'self'"],
       objectSrc: ["'none'"],
       mediaSrc: ["'self'"],
@@ -59,15 +66,19 @@ app.use(rateLimit({
 // Configuración de CORS
 app.use(cors({
   origin: function(origin, callback) {
-    const allowedOrigins = [config.cors?.origins, `https://${config.host}`];
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+    const allowedOrigins = [
+      config.cors.origins,
+      `https://${config.host}`
+    ].filter(Boolean); // Elimina valores undefined o null
+    
+    if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
       callback(new Error('No permitido por CORS'));
     }
   },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'X-Forwarded-For'],
   credentials: true,
   preflightContinue: false,
   optionsSuccessStatus: 204
