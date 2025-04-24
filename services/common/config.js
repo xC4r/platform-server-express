@@ -1,6 +1,6 @@
 const path = require('path');
-//require('dotenv').config({ path: path.resolve(__dirname, '../../.env.dev') });
-require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
+require('dotenv').config({ path: path.resolve(__dirname, '../../.env.dev') });
+//require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
 
 //console.log('Db: ', process.env.DATABASE_URL);
 module.exports = {
